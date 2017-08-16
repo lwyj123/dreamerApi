@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 var taskRoutes = require('./api/routes/todoListRoutes'); //importing route
 var userRoutes = require('./api/routes/userRoutes'); //importing route
 taskRoutes(app); //register the route
-userRoutes(app);
+// userRoutes(app);
 
 
 
