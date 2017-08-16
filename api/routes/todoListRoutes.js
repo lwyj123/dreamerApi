@@ -1,5 +1,4 @@
 'use strict';
-var bodyParser = require('body-parser').json();
 module.exports = function(app) {
   var todoList = require('../controllers/todoListController');
 

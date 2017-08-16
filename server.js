@@ -18,11 +18,12 @@ app.use(bodyParser.json());
 /*app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})
 }) */
-
 var taskRoutes = require('./api/routes/todoListRoutes'); //importing route
 var userRoutes = require('./api/routes/userRoutes'); //importing route
+var authRoutes = require('./api/routes/authRoutes');
 taskRoutes(app); //register the route
-// userRoutes(app);
+userRoutes(app);
+authRoutes(app);
 
 
 
