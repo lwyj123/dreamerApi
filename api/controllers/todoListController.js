@@ -19,6 +19,7 @@ exports.create_a_task = function(req, res) {
   var new_task = new Task({
     _id: new mongoose.Types.ObjectId,
     name: req.body.name,
+    describe: req.body.describe,
     owner: req.decoded._id,
   });
   new_task.save(function(err, task) {

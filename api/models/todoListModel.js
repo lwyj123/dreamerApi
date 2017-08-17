@@ -12,6 +12,10 @@ var TaskSchema = new Schema({
     type: String,
     required: true,
   },
+  describe: {
+    type: String,
+    required: false,
+  },
   created_at: {
     type: Date,
     default: Date.now
