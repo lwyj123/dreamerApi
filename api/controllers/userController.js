@@ -17,8 +17,12 @@ exports.list_all_users = function(req, res) {
 
 
 exports.create_a_user = function(req, res) {
-  var new_user = new User(req.body);
-  console.log(req.body)
+  var new_user = new User({
+    _id: new mongoose.Types.ObjectId,
+    email: req.body.email,
+    name: req.body.name,
+    password: req.body.password,
+  });
   new_user.save(function(err, user) {
     if (err)
       res.send(err);

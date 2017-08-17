@@ -16,8 +16,11 @@ exports.list_all_tasks = function(req, res) {
 
 
 exports.create_a_task = function(req, res) {
-  var new_task = new Task(req.body);
-  console.log(req.body)
+  var new_task = new Task({
+    _id: new mongoose.Types.ObjectId,
+    name: req.body.name,
+    owner: req.decoded._id,
+  });
   new_task.save(function(err, task) {
     if (err)
       res.send(err);

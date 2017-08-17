@@ -10,7 +10,6 @@ exports.signin = function(req, res) {
   User.findOne({
     name: req.body.name
   }, function(err, user) {
-    console.log(user)
     if (err) throw err;
 
     if (!user) {

@@ -2,11 +2,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var User  = require('./userModel')
 
 var TaskSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+  },
   name: {
     type: String,
-    Required: 'Kindly enter the name of the task'
+    required: true,
   },
   created_at: {
     type: Date,
@@ -22,6 +26,11 @@ var TaskSchema = new Schema({
       enum: ['pending', 'ongoing', 'completed']
     }],
     default: ['pending']
+  },
+  owner: {
+    type: Schema.Types.ObjectId, 
+    required: true,
+    ref: 'Person'
   }
 });
 

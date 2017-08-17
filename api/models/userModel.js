@@ -4,15 +4,21 @@ var Schema = mongoose.Schema;
 
 
 var UserSchema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+  },
   email: {
     type: String,
     unique: true,
+    required: true,
   },
   name: {
     type: String,
+    required: true,
   },
   password: {
     type: String,
+    required: true,
   },
   vip: {
     type: Number,
