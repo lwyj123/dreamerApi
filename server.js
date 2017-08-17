@@ -21,9 +21,45 @@ app.use(bodyParser.json());
 var taskRoutes = require('./api/routes/todoListRoutes'); //importing route
 var userRoutes = require('./api/routes/userRoutes'); //importing route
 var authRoutes = require('./api/routes/authRoutes');
+
+authRoutes(app);
+
+// token verify
+var apiRoutes = express.Router();
+apiRoutes.use(function(req, res, next) {
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp
+    jwt.verify(token, app.get('superSecret'), function(err, decoded) {      
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;    
+        next();
+      }
+    });
+
+  } else {
+
+    // if there is no token
+    // return an error
+    return res.status(401).send({ 
+        success: false, 
+        message: 'No token provided.' 
+    });
+
+  }
+}); 
+app.use('/', apiRoutes);
+
 taskRoutes(app); //register the route
 userRoutes(app);
-authRoutes(app);
+
 
 
 

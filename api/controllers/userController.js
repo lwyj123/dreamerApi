@@ -7,7 +7,7 @@ var User = mongoose.model('Users');
 exports.list_all_users = function(req, res) {
   User.find({}, function(err, user) {
     if (err) {
-      res.send(err);
+      res.status(400).send(err);
     }
     res.json(user);
   });

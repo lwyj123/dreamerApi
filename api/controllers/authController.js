@@ -10,18 +10,17 @@ exports.signin = function(req, res) {
   User.findOne({
     name: req.body.name
   }, function(err, user) {
-
+    console.log(user)
     if (err) throw err;
 
     if (!user) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' });
+      res.status(404).json({ success: false, message: 'Authentication failed. User not found.' });
     } else if (user) {
 
       // check if password matches
       if (user.password != req.body.password) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+        res.status(422).json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
-
         // if user is found and password is right
         // create a token
         var token = jwt.sign(user, config.secret, {
@@ -43,13 +42,13 @@ exports.signin = function(req, res) {
 
 exports.verify = function(req, res, next) {
   // check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var token = req.headers['Access-Token'];
 
   // decode token
   if (token) {
 
     // verifies secret and checks exp
-    jwt.verify(token, app.get('superSecret'), function(err, decoded) {      
+    jwt.verify(token, config.secret, function(err, decoded) {      
       if (err) {
         return res.json({ success: false, message: 'Failed to authenticate token.' });    
       } else {

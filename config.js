@@ -1,4 +1,4 @@
 module.exports = {
-  'secret': 'ilovescotchyscotch',
+  'secret': 'lwio',
   'database': 'mongodb://localhost/Dreamerdb'
 };
