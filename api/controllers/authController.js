@@ -8,7 +8,7 @@ exports.signin = function(req, res) {
 
   // find the user
   User.findOne({
-    name: req.body.name
+    email: req.body.email
   }, function(err, user) {
     if (err) throw err;
 
@@ -28,8 +28,9 @@ exports.signin = function(req, res) {
 
         // return the information including token as JSON
         res.json({
-          success: true,
-          message: 'Enjoy your token!',
+          name: user.name,
+          email: user.email,
+          vip: user.vip,
           token: token
         });
       }   
